@@ -1,4 +1,6 @@
-![status](https://secure.travis-ci.org/wearefractal/APPNAME.png?branch=master)
+[![Build Status](https://travis-ci.org/wearefractal/APPNAME.png?branch=master)](https://travis-ci.org/wearefractal/APPNAME)
+
+[![NPM version](https://badge.fury.io/js/APPNAME.png)](http://badge.fury.io/js/APPNAME)
 
 ## Information
 
