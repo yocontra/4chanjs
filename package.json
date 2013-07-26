@@ -1,18 +1,19 @@
 {
-   "name":"APPNAME",
-   "description":"Nothing here yet",
+   "name":"4chanjs",
+   "description":"NodeJS and Browser 4chan API client",
    "version":"0.0.1",
-   "homepage":"http://github.com/wearefractal/APPNAME",
-   "repository":"git://github.com/wearefractal/APPNAME.git",
+   "homepage":"http://github.com/wearefractal/4chanjs",
+   "repository":"git://github.com/wearefractal/4chanjs.git",
    "author":"Fractal <contact@wearefractal.com> (http://wearefractal.com/)",
    "main":"./index.js",
    
    "dependencies":{
-      
+      "request":"*"
    },
    "devDependencies":{
       "mocha":"*",
-      "should":"*"
+      "should":"*",
+      "fixnode":"*"
    },
    "scripts":{
       "test":"mocha"
@@ -23,7 +24,7 @@
    "licenses":[
       {
          "type":"MIT",
-         "url":"http://github.com/wearefractal/APPNAME/raw/master/LICENSE"
+         "url":"http://github.com/wearefractal/4chanjs/raw/master/LICENSE"
       }
    ]
 }

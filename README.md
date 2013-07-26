@@ -1,16 +1,16 @@
-[![Build Status](https://travis-ci.org/wearefractal/APPNAME.png?branch=master)](https://travis-ci.org/wearefractal/APPNAME)
+[![Build Status](https://travis-ci.org/wearefractal/4chanjs.png?branch=master)](https://travis-ci.org/wearefractal/4chanjs)
 
-[![NPM version](https://badge.fury.io/js/APPNAME.png)](http://badge.fury.io/js/APPNAME)
+[![NPM version](https://badge.fury.io/js/4chanjs.png)](http://badge.fury.io/js/4chanjs)
 
 ## Information
 
 <table>
 <tr> 
-<td>Package</td><td>APPNAME</td>
+<td>Package</td><td>4chanjs</td>
 </tr>
 <tr>
 <td>Description</td>
-<td>NOTHING HERE YET</td>
+<td>NodeJS and Browser 4chan API client</td>
 </tr>
 <tr>
 <td>Node Version</td>
@@ -21,12 +21,39 @@
 ## Usage
 
 ```javascript
-NOTHING HERE YET
+var 4chan = require('4chanjs');
+
+4chan.boards(function(err, boards){
+	// boards is an array
+});
+
+var random = 4chan.board('b');
+
+random.catalog(function(err, pages){
+	// catalog returns all pages from a board
+	// but the list of threads only contains the OP
+});
+
+random.page(0, function(err, threads){
+	// this will return an array of threads
+});
+
+random.threads(function(err, threads){
+	// this is the same as catalog
+	// but shows only thread ids
+});
+
+random.thread(495627174, function(err, posts){
+	// this will return an array of posts
+});
+
+// sugar for getting an image url from a filename in a post
+var img = random.image("somefile.jpeg");
 ```
 
-## Examples
+## WTF is this data
 
-You can view more examples in the [example folder.](https://github.com/wearefractal/APPNAME/tree/master/examples)
+You can see an explanation on what the fields are [here.](https://github.com/4chan/4chan-API)
 
 ## LICENSE
 
