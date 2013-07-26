@@ -21,13 +21,13 @@
 ## Usage
 
 ```javascript
-var 4chan = require('4chanjs');
+var chan = require('4chanjs');
 
-4chan.boards(function(err, boards){
+chan.boards(function(err, boards){
 	// boards is an array
 });
 
-var random = 4chan.board('b');
+var random = chan.board('b');
 
 random.catalog(function(err, pages){
 	// catalog returns all pages from a board
