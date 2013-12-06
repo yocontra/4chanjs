@@ -1,6 +1,6 @@
 var request = require('request');
 
-var baseUrl = "https://api.4chan.org";
+var baseUrl = "https://a.4cdn.org";
 var api = {};
 
 api.boards = function(cb) {
