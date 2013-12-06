@@ -19,7 +19,7 @@ api.board = function(board) {
 	subapi._board = board;
 	
 	subapi.image = function(file) {
-		return ["https://images.4chan.org/", board, "src", file].join("/");
+		return ["https://i.4cdn.org", board, "src", file].join("/");
 	};
 
 	subapi.catalog = function(cb) {
