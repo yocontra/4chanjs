@@ -37,17 +37,17 @@ describe('4chan api', function() {
       	Array.isArray(pages).should.equal(true);
       	pages.length.should.not.equal(0);
       	should.exist(pages[0].page);
-      	pages[0].page.should.equal(0);
+      	pages[0].page.should.equal(1);
       	done();
       });
     });
   });
 
   describe('board.page()', function() {
-    it('should return a list of threads from page 0 of /b/', function(done) {
+    it('should return a list of threads from page 1 of /b/', function(done) {
       this.timeout(5000);
       var board = api.board('b');
-      board.page(0, function(err, threads){
+      board.page(1, function(err, threads){
       	should.not.exist(err);
       	should.exist(threads);
       	Array.isArray(threads).should.equal(true);
@@ -59,7 +59,7 @@ describe('4chan api', function() {
   });
 
   describe('board.threads()', function() {
-    it('should return a list of threads from page 0 of /b/', function(done) {
+    it('should return a list of threads from page 1 of /b/', function(done) {
       this.timeout(5000);
       var board = api.board('b');
       board.threads(function(err, pages){
@@ -78,7 +78,7 @@ describe('4chan api', function() {
       this.timeout(5000);
       var board = api.board('b');
       board.threads(function(err, pages){
-      	board.thread(pages[0].threads[0].no, function(err, thread){
+      	board.thread(pages[1].threads[0].no, function(err, thread){
       		should.not.exist(err);
 	      	should.exist(thread);
 	      	Array.isArray(thread).should.equal(true);
