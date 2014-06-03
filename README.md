@@ -34,7 +34,7 @@ random.catalog(function(err, pages){
 	// but the list of threads only contains the OP
 });
 
-random.page(0, function(err, threads){
+random.page(1, function(err, threads){
 	// this will return an array of threads
 });
 
