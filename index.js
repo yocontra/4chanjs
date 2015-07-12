@@ -70,7 +70,10 @@ api.board = function(board) {
 			if (body){
 				cb(null, body.posts);
 			} else {
-				cb(new Error('Not Found'), null);
+                err = new Error('Not Found');
+                err.code = "ENOTFOUND";
+                err.statusCode = 404;
+				cb(err, null);
 			}
 		});
 
