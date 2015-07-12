@@ -67,7 +67,11 @@ api.board = function(board) {
 
 		request(uri, requestOptions, function(err, res, body){
 			if (err) return cb(err);
-			cb(null, body.posts);
+			if (body){
+				cb(null, body.posts);
+			} else {
+				cb(new Error('Not Found'), null);
+			}
 		});
 
 		return api;
