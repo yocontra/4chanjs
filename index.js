@@ -4,9 +4,9 @@ var baseUrl = "https://a.4cdn.org";
 var api = {};
 
 var requestOptions = {
-	json:true, 
+	json: true,
 	headers: {
-		'if-modified-since': (new Date()).toUTCString()
+		'if-modified-since': 0
 	}
 };
 
@@ -44,6 +44,9 @@ api.board = function(board) {
 		var uri = [baseUrl, board, "threads.json"].join("/");
 
 		request(uri, requestOptions, function(err, res, body){
+			if (res.statusCode === 404) {
+				return cb(new Error('board_not_found'))
+			}
 			if (err) return cb(err);
 			cb(null, body);
 		});
@@ -63,11 +66,48 @@ api.board = function(board) {
 	};
 
 	subapi.thread = function(num, cb) {
-		var uri = [baseUrl, board, "res", num+".json"].join("/");
+		// To avoid any breaking changes thread() continues to
+		// take the same arguments and return the same result
+		// as previously but if lastModified is supplied then
+		// call the new function, threadChanges().
+		if (arguments.length === 3) {
+			return threadChanges.apply(subapi, arguments)
+		}
+		var uri = [baseUrl, board, "thread", num+".json"].join("/");
 
 		request(uri, requestOptions, function(err, res, body){
 			if (err) return cb(err);
+			if (res.statusCode === 404) {
+				return cb(new Error('thread_not_found'));
+			}
 			cb(null, body.posts);
+		});
+
+		return api;
+	};
+
+	function threadChanges(num, lastModified, cb) {
+		console.log(arguments)
+		var uri = [baseUrl, board, "thread", num+".json"].join("/");
+
+		requestOptionsLocal = JSON.parse(JSON.stringify(requestOptions)); // clone global request options
+		if( lastModified ) requestOptionsLocal.headers['if-modified-since'] = lastModified;
+
+		request(uri, requestOptionsLocal, function(err, res, body){
+			if (err) return cb(err);
+			if (res.statusCode === 404) {
+				return cb(new Error('thread_not_found'));
+			}
+			var result = {
+				lastModified: res.headers['last-modified']
+			};
+			if(res.statusCode === 304) {
+				result.status = 'not_modified_since_last_fetch';
+			} else {
+				result.status = 'got_changed_posts'
+				result.posts = body.posts;
+			}
+			cb(null, result);
 		});
 
 		return api;

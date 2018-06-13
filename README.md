@@ -43,8 +43,12 @@ random.threads(function(err, threads){
 	// but shows only thread ids
 });
 
-random.thread(495627174, function(err, posts){
-	// this will return an array of posts
+random.thread(495627174, null, function(err, posts){
+	// if you have a last-modified timestamp from a
+	// previous fetch, use that instead of null to get
+	// all posts which have changed since then.
+	// this will return an object with the last modified
+	// timestamp, a status and an array of posts
 });
 
 // sugar for getting an image url from a filename in a post
