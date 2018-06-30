@@ -9,11 +9,11 @@ describe('4chan api', function() {
     it('should return a list of boards', function(done) {
       this.timeout(5000);
       api.boards(function(err, boards){
-      	should.not.exist(err);
-      	should.exist(boards);
-      	Array.isArray(boards).should.equal(true);
-      	boards.length.should.not.equal(0);
-      	done();
+        should.not.exist(err);
+        should.exist(boards);
+        Array.isArray(boards).should.equal(true);
+        boards.length.should.not.equal(0);
+        done();
       });
     });
   });
@@ -32,13 +32,13 @@ describe('4chan api', function() {
       this.timeout(5000);
       var board = api.board('b');
       board.catalog(function(err, pages){
-      	should.not.exist(err);
-      	should.exist(pages);
-      	Array.isArray(pages).should.equal(true);
-      	pages.length.should.not.equal(0);
-      	should.exist(pages[0].page);
-      	pages[0].page.should.equal(1);
-      	done();
+        should.not.exist(err);
+        should.exist(pages);
+        Array.isArray(pages).should.equal(true);
+        pages.length.should.not.equal(0);
+        should.exist(pages[0].page);
+        pages[0].page.should.equal(1);
+        done();
       });
     });
   });
@@ -48,12 +48,12 @@ describe('4chan api', function() {
       this.timeout(5000);
       var board = api.board('b');
       board.page(1, function(err, threads){
-      	should.not.exist(err);
-      	should.exist(threads);
-      	Array.isArray(threads).should.equal(true);
-      	threads.length.should.not.equal(0);
-      	should.exist(threads[0].posts);
-      	done();
+        should.not.exist(err);
+        should.exist(threads);
+        Array.isArray(threads).should.equal(true);
+        threads.length.should.not.equal(0);
+        should.exist(threads[0].posts);
+        done();
       });
     });
   });
@@ -63,28 +63,50 @@ describe('4chan api', function() {
       this.timeout(5000);
       var board = api.board('b');
       board.threads(function(err, pages){
-      	should.not.exist(err);
-      	should.exist(pages);
-      	Array.isArray(pages).should.equal(true);
-      	pages.length.should.not.equal(0);
-      	should.exist(pages[0].threads);
-      	done();
+        should.not.exist(err);
+        should.exist(pages);
+        Array.isArray(pages).should.equal(true);
+        pages.length.should.not.equal(0);
+        should.exist(pages[0].threads);
+        done();
       });
     });
   });
 
-  describe('board.thread()', function() {
-    it('should return a full threads from /b/', function(done) {
+  describe('board.thread() without lastModified', function() {
+    it('should return a full thread from /b/', function(done) {
       this.timeout(5000);
       var board = api.board('b');
       board.threads(function(err, pages){
-      	board.thread(pages[1].threads[0].no, function(err, thread){
-      		should.not.exist(err);
-	      	should.exist(thread);
-	      	Array.isArray(thread).should.equal(true);
-	      	thread.length.should.not.equal(0);
-      		done();
-      	})
+        board.thread(pages[1].threads[0].no, function(err, thread){
+          should.not.exist(err);
+          should.exist(thread);
+          Array.isArray(thread).should.equal(true);
+          thread.length.should.not.equal(0);
+          done();
+        })
+      });
+    });
+  });
+
+  describe('board.thread() with lastModified', function() {
+    it('should return a full thread from /b/', function(done) {
+      this.timeout(5000);
+      var board = api.board('b');
+      board.threads(function(err, pages){
+        board.thread(pages[1].threads[0].no, null, function(err, thread){
+          should.not.exist(err);
+          should.exist(thread);
+
+          should.exist(thread.posts);
+          Array.isArray(thread.posts).should.equal(true);
+          thread.posts.length.should.not.equal(0);
+
+          should.exist(thread.lastModified);
+          thread.lastModified.should.be.String();
+          thread.lastModified.length.should.not.equal(0);
+          done();
+        })
       });
     });
   });
